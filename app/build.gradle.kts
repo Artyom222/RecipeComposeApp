@@ -42,9 +42,10 @@ android {
 
 dependencies {
     implementation(platform(libs.compose.bom))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material3:material3")
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.material3)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
