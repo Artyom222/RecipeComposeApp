@@ -1,7 +1,7 @@
 package ru.example.recipecomposeapp.theme
 
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 
 object Dimens {
     val PaddingSmallest: Dp = 2.dp
