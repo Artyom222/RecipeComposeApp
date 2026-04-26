@@ -1,29 +1,87 @@
 package ru.example.recipecomposeapp
 
+import android.content.res.Configuration
+import android.util.Log
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import ru.example.recipecomposeapp.navigation.BottomNavigation
 import ru.example.recipecomposeapp.theme.RecipesAppTheme
 
 @Composable
 fun RecipesApp() {
+    var currentScreen by remember { mutableStateOf(ScreenId.CATEGORIES) }
     RecipesAppTheme {
-        Scaffold { paddingValues ->
-            Text(
-                text = "Recipes App",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(paddingValues),
-            )
+        Scaffold(
+            bottomBar = {
+                BottomNavigation(
+                    onFavoriteClick = {
+                        currentScreen = ScreenId.FAVORITES
+                    },
+                    onCategoriesClick = {
+                        currentScreen = ScreenId.CATEGORIES
+                    },
+                )
+            }
+        ) { paddingValues ->
+            when (currentScreen) {
+                ScreenId.CATEGORIES -> CategoriesScreen(
+                    modifier = Modifier.padding(paddingValues)
+                )
+
+                ScreenId.FAVORITES -> FavoriteScreen(
+                    modifier = Modifier.padding(paddingValues)
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun RecipesAppPreview() {
+fun CategoriesScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Категории",
+            style = MaterialTheme.typography.displayLarge
+        )
+    }
+}
+
+@Composable
+fun FavoriteScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Избранное",
+            style = MaterialTheme.typography.displayLarge
+        )
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+fun RecipesAppPreviewLight() {
+    RecipesApp()
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun RecipesAppPreviewDark() {
     RecipesApp()
 }
