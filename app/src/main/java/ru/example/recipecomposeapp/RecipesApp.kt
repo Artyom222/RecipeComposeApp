@@ -15,9 +15,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.example.recipecomposeapp.navigation.BottomNavigation
 import ru.example.recipecomposeapp.theme.RecipesAppTheme
+import ru.example.recipecomposeapp.ui.components.ScreenHeader
 
 @Composable
 fun RecipesApp() {
@@ -50,6 +52,11 @@ fun RecipesApp() {
 
 @Composable
 fun CategoriesScreen(modifier: Modifier = Modifier) {
+    ScreenHeader(
+        imagePainter = painterResource(id = R.drawable.bcg_categories),
+        contentDescription = "Категории",
+        title = "Категории",
+    )
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -63,6 +70,11 @@ fun CategoriesScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun FavoriteScreen(modifier: Modifier = Modifier) {
+    ScreenHeader(
+        imagePainter = painterResource(id = R.drawable.bcg_categories),
+        contentDescription = "Избранное",
+        title = "Избранное",
+    )
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
