@@ -27,12 +27,10 @@ fun RecipesApp() {
             bottomBar = {
                 BottomNavigation(
                     onFavoriteClick = {
-                        currentScreen = ScreenId.FAVORITE
-                        Log.i("!!!", "Выбран экран FAVORITE")
+                        currentScreen = ScreenId.FAVORITES
                     },
                     onCategoriesClick = {
                         currentScreen = ScreenId.CATEGORIES
-                        Log.i("!!!", "Выбран экран CATEGORIES")
                     },
                 )
             }
@@ -42,7 +40,7 @@ fun RecipesApp() {
                     modifier = Modifier.padding(paddingValues)
                 )
 
-                ScreenId.FAVORITE -> FavoriteScreen(
+                ScreenId.FAVORITES -> FavoriteScreen(
                     modifier = Modifier.padding(paddingValues)
                 )
             }

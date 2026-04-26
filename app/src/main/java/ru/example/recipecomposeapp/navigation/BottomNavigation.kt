@@ -3,6 +3,7 @@ package ru.example.recipecomposeapp.navigation
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,6 +30,7 @@ fun BottomNavigation(
                 horizontal = Dimens.PaddingMain,
                 vertical = Dimens.PaddingMedium,
                 )
+            .navigationBarsPadding()
     ) {
         Button(
             onClick = onCategoriesClick,
