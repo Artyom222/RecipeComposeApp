@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.example.recipecomposeapp.navigation.BottomNavigation
 import ru.example.recipecomposeapp.theme.RecipesAppTheme
+import ru.example.recipecomposeapp.ui.categories.CategoriesScreen
 import ru.example.recipecomposeapp.ui.components.ScreenHeader
 
 @Composable
@@ -47,24 +48,6 @@ fun RecipesApp() {
                 )
             }
         }
-    }
-}
-
-@Composable
-fun CategoriesScreen(modifier: Modifier = Modifier) {
-    ScreenHeader(
-        imagePainter = painterResource(id = R.drawable.bcg_categories),
-        contentDescription = "Категории",
-        title = "Категории",
-    )
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Категории",
-            style = MaterialTheme.typography.displayLarge
-        )
     }
 }
 
