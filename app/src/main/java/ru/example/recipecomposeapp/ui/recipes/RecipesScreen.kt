@@ -1,4 +1,4 @@
-package ru.example.recipecomposeapp.ui.categories
+package ru.example.recipecomposeapp.ui.recipes
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,18 +12,18 @@ import ru.example.recipecomposeapp.R
 import ru.example.recipecomposeapp.core.ui.ScreenHeader
 
 @Composable
-fun CategoriesScreen(modifier: Modifier = Modifier) {
+fun RecipesScreen(modifier: Modifier = Modifier){
     ScreenHeader(
-        imagePainter = painterResource(id = R.drawable.bcg_categories),
-        contentDescription = "Категории",
-        title = "Категории",
+        imagePainter = painterResource(R.drawable.bcg_favorites),
+        contentDescription = "Рецепты",
+        title = "Рецепты"
     )
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Категории",
+            text = "Скоро будут рецепты",
             style = MaterialTheme.typography.displayLarge
         )
     }

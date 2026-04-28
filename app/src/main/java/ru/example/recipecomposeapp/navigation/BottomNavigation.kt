@@ -41,7 +41,7 @@ fun BottomNavigation(
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.tertiary)
         ) {
             Text(
-                text = "Категории",
+                text = "Категории".uppercase(),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onTertiary
             )
@@ -54,7 +54,7 @@ fun BottomNavigation(
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.error)
         ) {
             Text(
-                text = "Избранное",
+                text = "Избранное".uppercase(),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onError
             )
