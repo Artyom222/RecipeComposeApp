@@ -1,4 +1,4 @@
-package ru.example.recipecomposeapp.ui.components
+package ru.example.recipecomposeapp.core.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import ru.example.recipecomposeapp.theme.Dimens
 
 @Composable
@@ -24,7 +25,8 @@ fun ScreenHeader(
 ) {
     Box(
         modifier = Modifier
-        .height(Dimens.HeaderHeight)
+            .height(Dimens.HeaderHeight)
+            .padding(0.dp)
     ) {
         Image(
             painter = imagePainter,
