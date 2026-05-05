@@ -1,7 +1,6 @@
 package ru.example.recipecomposeapp
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,7 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import ru.example.recipecomposeapp.navigation.BottomNavigation
 import ru.example.recipecomposeapp.theme.RecipesAppTheme
 import ru.example.recipecomposeapp.ui.categories.CategoriesScreen
-import ru.example.recipecomposeapp.ui.components.ScreenHeader
+import ru.example.recipecomposeapp.core.ui.ScreenHeader
+import ru.example.recipecomposeapp.ui.favorites.FavoritesScreen
 
 @Composable
 fun RecipesApp() {
@@ -43,29 +43,11 @@ fun RecipesApp() {
                     modifier = Modifier.padding(paddingValues)
                 )
 
-                ScreenId.FAVORITES -> FavoriteScreen(
+                ScreenId.FAVORITES -> FavoritesScreen(
                     modifier = Modifier.padding(paddingValues)
                 )
             }
         }
-    }
-}
-
-@Composable
-fun FavoriteScreen(modifier: Modifier = Modifier) {
-    ScreenHeader(
-        imagePainter = painterResource(id = R.drawable.bcg_categories),
-        contentDescription = "Избранное",
-        title = "Избранное",
-    )
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Избранное",
-            style = MaterialTheme.typography.displayLarge
-        )
     }
 }
 
