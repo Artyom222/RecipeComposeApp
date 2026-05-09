@@ -20,8 +20,9 @@ fun RecipesScreen(modifier: Modifier = Modifier){
     Column {
         val context = LocalContext.current
         val imagePainter = remember {
-            val inputStream = context.assets.open("burger.png")
-            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val bitmap = context.assets.open("burger.png").use {
+                BitmapFactory.decodeStream(it)
+            }
             BitmapPainter(bitmap.asImageBitmap())
         }
         ScreenHeader(
