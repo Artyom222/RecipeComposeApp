@@ -13,12 +13,12 @@ import androidx.compose.ui.res.painterResource
 import ru.example.recipecomposeapp.core.ui.ScreenHeader
 
 @Composable
-fun FavoritesScreen(modifier: Modifier = Modifier){
+fun FavoritesScreen(modifier: Modifier = Modifier) {
     Column {
         ScreenHeader(
             imagePainter = painterResource(R.drawable.bcg_favorites),
             contentDescription = "Избранное",
-            title = "Избранное"
+            title = "Избранное",
         )
         Box(
             modifier = modifier.fillMaxSize(),
