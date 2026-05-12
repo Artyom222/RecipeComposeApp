@@ -40,7 +40,7 @@ fun CategoriesScreen(modifier: Modifier = Modifier) {
                 }
                 CategoryItem(
                     image = imageCategoriesPainter,
-                    category = category.title,
+                    category = category.name,
                     description = category.description,
                 )
             }
