@@ -4,14 +4,14 @@ import androidx.compose.runtime.Immutable
 import ru.example.recipecomposeapp.data.model.IngredientDto
 
 @Immutable
-data class IngredientUiMode(
+data class IngredientUiModel(
     val name: String,
     val quantity: String,
     val unitOfMeasure: String,
 )
 
-fun IngredientDto.toUiModel(): IngredientUiMode {
-    return IngredientUiMode(
+fun IngredientDto.toUiModel(): IngredientUiModel {
+    return IngredientUiModel(
         name = description,
         quantity = quantity,
         unitOfMeasure = unitOfMeasure,
