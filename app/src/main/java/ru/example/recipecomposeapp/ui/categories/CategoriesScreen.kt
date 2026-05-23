@@ -17,31 +17,29 @@ import ru.example.recipecomposeapp.R
 import ru.example.recipecomposeapp.core.ui.ScreenHeader
 import ru.example.recipecomposeapp.data.repository.getCategories
 import ru.example.recipecomposeapp.theme.Dimens
+import ru.example.recipecomposeapp.ui.categories.model.toUiModel
 
 @Composable
-fun CategoriesScreen(modifier: Modifier = Modifier) {
+fun CategoriesScreen(
+    modifier: Modifier = Modifier,
+    onCategoryClick: (Int) -> Unit
+) {
     Column(modifier = modifier) {
         ScreenHeader(
             imagePainter = painterResource(id = R.drawable.bcg_categories),
             contentDescription = "Категории",
             title = "Категории"
         )
-        val context = LocalContext.current
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier
                 .padding(Dimens.PaddingMedium)
         ) {
             items(getCategories()) { category ->
-                val imageCategoriesPainter = remember {
-                    val inputStream = context.assets.open(category.imageUrl)
-                    val bitmap = BitmapFactory.decodeStream(inputStream)
-                    BitmapPainter(bitmap.asImageBitmap())
-                }
                 CategoryItem(
-                    image = imageCategoriesPainter,
-                    category = category.name,
-                    description = category.description,
+                    category = category.toUiModel(),
+                    onClick = { onCategoryClick(category.id) },
+                    modifier = modifier,
                 )
             }
         }
