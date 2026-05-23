@@ -26,7 +26,6 @@ fun ScreenHeader(
     Box(
         modifier = Modifier
             .height(Dimens.HeaderHeight)
-            .padding(0.dp)
     ) {
         Image(
             painter = imagePainter,
