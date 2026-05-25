@@ -23,7 +23,9 @@ fun CategoriesScreen(
     modifier: Modifier = Modifier,
     onCategoryClick: (Int, String) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier,
+    ) {
         ScreenHeader(
             imagePainter = painterResource(id = R.drawable.bcg_categories),
             contentDescription = "Категории",
@@ -31,10 +33,10 @@ fun CategoriesScreen(
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues( horizontal = Dimens.PaddingMain),
+            contentPadding = PaddingValues( Dimens.PaddingMain),
             verticalArrangement = Arrangement.spacedBy(Dimens.PaddingMain),
             horizontalArrangement = Arrangement.spacedBy(Dimens.PaddingMain),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
         ) {
             items(
@@ -45,7 +47,6 @@ fun CategoriesScreen(
                 CategoryItem(
                     category = uiModelCategory,
                     onClick = { onCategoryClick(uiModelCategory.id, uiModelCategory.title) },
-                    modifier = Modifier,
                 )
             }
         }

@@ -1,24 +1,41 @@
 package ru.example.recipecomposeapp.ui.recipes
 
 import android.graphics.BitmapFactory
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.platform.LocalContext
-import okio.use
 import ru.example.recipecomposeapp.core.ui.ScreenHeader
+import ru.example.recipecomposeapp.data.repository.getRecipesByCategoryId
+import ru.example.recipecomposeapp.theme.Dimens
+import ru.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
+import ru.example.recipecomposeapp.ui.recipes.model.toUiModel
 
 @Composable
-fun RecipesScreen(modifier: Modifier = Modifier){
-    Column {
+fun RecipesScreen(
+    categoryId: Int,
+    categoryTitle: String,
+    modifier: Modifier = Modifier,
+    onRecipeClick: (Int) -> Unit = {}
+){
+    var recipes by remember { mutableStateOf<List<RecipeUiModel>>(emptyList()) }
+    LaunchedEffect(categoryId) {
+        categoryId?.let {
+            recipes = getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
+        }
+    }
+
+    Column(modifier = modifier) {
         val context = LocalContext.current
         val imagePainter = remember {
             val bitmap = context.assets.open("burger.png").use {
@@ -28,17 +45,22 @@ fun RecipesScreen(modifier: Modifier = Modifier){
         }
         ScreenHeader(
             imagePainter = imagePainter,
-            contentDescription = "Рецепты",
-            title = "Рецепты"
+            contentDescription = "Рецепты: ${categoryTitle}",
+            title = categoryTitle
         )
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+        LazyColumn(modifier = Modifier
+            .padding(Dimens.PaddingMedium)
         ) {
-            Text(
-                text = "Скоро будут рецепты",
-                style = MaterialTheme.typography.displayLarge
-            )
+            items(
+                items = recipes,
+                key = { it.id }
+            ) { recipe ->
+                RecipeItem(
+                    recipe = recipe,
+                    onRecipeClick = onRecipeClick,
+                    modifier = modifier,
+                )
+            }
         }
     }
 }
