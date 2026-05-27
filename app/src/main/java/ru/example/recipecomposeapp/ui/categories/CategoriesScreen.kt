@@ -33,7 +33,7 @@ fun CategoriesScreen(
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues( Dimens.PaddingMain),
+            contentPadding = PaddingValues(Dimens.PaddingMain),
             verticalArrangement = Arrangement.spacedBy(Dimens.PaddingMain),
             horizontalArrangement = Arrangement.spacedBy(Dimens.PaddingMain),
             modifier = Modifier

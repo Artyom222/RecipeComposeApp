@@ -1,7 +1,10 @@
 package ru.example.recipecomposeapp.ui.recipes
 
 import android.graphics.BitmapFactory
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,12 +33,10 @@ fun RecipesScreen(
 ){
     var recipes by remember { mutableStateOf<List<RecipeUiModel>>(emptyList()) }
     LaunchedEffect(categoryId) {
-        categoryId?.let {
-            recipes = getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
-        }
+        recipes = getRecipesByCategoryId(categoryId).map { dto -> dto.toUiModel() }
     }
 
-    Column(modifier = modifier) {
+     Column(modifier = modifier) {
         val context = LocalContext.current
         val imagePainter = remember {
             val bitmap = context.assets.open("burger.png").use {
@@ -48,8 +49,10 @@ fun RecipesScreen(
             contentDescription = "Рецепты: ${categoryTitle}",
             title = categoryTitle
         )
-        LazyColumn(modifier = Modifier
-            .padding(Dimens.PaddingMedium)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(Dimens.PaddingMain),
+            verticalArrangement = Arrangement.spacedBy(Dimens.PaddingMain)
         ) {
             items(
                 items = recipes,
@@ -58,7 +61,6 @@ fun RecipesScreen(
                 RecipeItem(
                     recipe = recipe,
                     onRecipeClick = onRecipeClick,
-                    modifier = modifier,
                 )
             }
         }
