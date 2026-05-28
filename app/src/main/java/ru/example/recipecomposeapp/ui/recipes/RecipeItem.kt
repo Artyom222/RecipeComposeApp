@@ -29,7 +29,6 @@ fun RecipeItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(Dimens.PaddingMedium)
             .clickable { onRecipeClick(recipe.id) },
         shape = RoundedCornerShape(Dimens.PaddingMedium),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
