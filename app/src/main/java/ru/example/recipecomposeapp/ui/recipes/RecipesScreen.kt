@@ -1,11 +1,9 @@
 package ru.example.recipecomposeapp.ui.recipes
 
-import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -15,9 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.platform.LocalContext
+import ru.example.recipecomposeapp.R
+import androidx.compose.ui.res.painterResource
 import ru.example.recipecomposeapp.core.ui.ScreenHeader
 import ru.example.recipecomposeapp.data.repository.getRecipesByCategoryId
 import ru.example.recipecomposeapp.theme.Dimens
@@ -37,20 +34,13 @@ fun RecipesScreen(
     }
 
      Column(modifier = modifier) {
-        val context = LocalContext.current
-        val imagePainter = remember {
-            val bitmap = context.assets.open("burger.png").use {
-                BitmapFactory.decodeStream(it)
-            }
-            BitmapPainter(bitmap.asImageBitmap())
-        }
         ScreenHeader(
-            imagePainter = imagePainter,
+            imagePainter = painterResource(R.drawable.bcg_recipes_list),
             contentDescription = "Рецепты: ${categoryTitle}",
             title = categoryTitle
         )
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(Dimens.PaddingMain),
             verticalArrangement = Arrangement.spacedBy(Dimens.PaddingMain)
         ) {
