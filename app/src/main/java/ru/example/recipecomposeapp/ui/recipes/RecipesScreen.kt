@@ -33,7 +33,7 @@ fun RecipesScreen(
         recipes = getRecipesByCategoryId(categoryId).map { dto -> dto.toUiModel() }
     }
 
-     Column(modifier = modifier) {
+     Column(modifier = modifier.fillMaxSize()) {
         ScreenHeader(
             imagePainter = painterResource(R.drawable.bcg_recipes_list),
             contentDescription = "Рецепты: ${categoryTitle}",
