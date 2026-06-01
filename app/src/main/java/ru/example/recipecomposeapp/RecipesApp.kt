@@ -4,58 +4,71 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import ru.example.recipecomposeapp.navigation.BottomNavigation
+import ru.example.recipecomposeapp.navigation.Destination
 import ru.example.recipecomposeapp.theme.RecipesAppTheme
 import ru.example.recipecomposeapp.ui.categories.CategoriesScreen
 import ru.example.recipecomposeapp.ui.favorites.FavoritesScreen
 import ru.example.recipecomposeapp.ui.recipes.RecipesScreen
 
-
 @Composable
 fun RecipesApp() {
-    var currentScreen by remember { mutableStateOf(ScreenId.CATEGORIES) }
-    var selectedCategoryId by remember { mutableStateOf<Int?>(null) }
-    var selectedCategoryTitle by remember { mutableStateOf("") }
+    val navController = rememberNavController()
     RecipesAppTheme {
         Scaffold(
             bottomBar = {
                 BottomNavigation(
                     onFavoriteClick = {
-                        currentScreen = ScreenId.FAVORITES
+                        navController.navigate(Destination.Favorites.route)
                     },
                     onCategoriesClick = {
-                        currentScreen = ScreenId.CATEGORIES
-                        selectedCategoryId = null
-                        selectedCategoryTitle = ""
+                        navController.navigate(Destination.Categories.route)
                     },
                 )
             }
         ) { paddingValues ->
-            when (currentScreen) {
-                ScreenId.CATEGORIES -> CategoriesScreen(
-                    modifier = Modifier.padding(paddingValues),
-                    onCategoryClick = { categoryId, categoryTitle ->
-                        selectedCategoryId = categoryId
-                        selectedCategoryTitle = categoryTitle
-                        currentScreen = ScreenId.RECIPES
-                    }
-                )
-
-                ScreenId.RECIPES -> RecipesScreen(
-                    categoryId = selectedCategoryId ?: error("Category ID is required"),
-                    categoryTitle = selectedCategoryTitle,
-                    modifier = Modifier.padding(paddingValues),
-                )
-
-                ScreenId.FAVORITES -> FavoritesScreen(
-                    modifier = Modifier.padding(paddingValues)
-                )
+            NavHost(
+                navController = navController,
+                startDestination = Destination.Categories.route,
+                modifier = Modifier.padding(paddingValues)
+            ) {
+                composable(route = Destination.Categories.route) {
+                    CategoriesScreen(
+                        onCategoryClick = { categoryId, categoryTitle ->
+                            navController.navigate(
+                                Destination
+                                    .Recipes
+                                    .createRoute(categoryId, categoryTitle)
+                            )
+                        }
+                    )
+                }
+                composable(route = Destination.Favorites.route) {
+                    FavoritesScreen()
+                }
+                composable(
+                    route = Destination.Recipes.route,
+                    arguments = listOf(
+                        navArgument("categoryId") { type = NavType.IntType },
+                        navArgument("categoryTitle") { type = NavType.StringType },
+                    )
+                ) { backStackEntry ->
+                    val categoryId = backStackEntry.arguments?.getInt("categoryId")
+                        ?: error("Category ID is required")
+                    val categoryTitle = backStackEntry.arguments?.getString("categoryTitle")
+                        ?: error("Category title is required")
+                    RecipesScreen(
+                        categoryId = categoryId,
+                        categoryTitle = categoryTitle,
+                    )
+                }
             }
         }
     }
