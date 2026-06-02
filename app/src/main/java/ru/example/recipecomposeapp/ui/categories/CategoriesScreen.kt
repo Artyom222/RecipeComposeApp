@@ -3,13 +3,16 @@ package ru.example.recipecomposeapp.ui.categories
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import ru.example.recipecomposeapp.R
 import ru.example.recipecomposeapp.core.ui.ScreenHeader
 import ru.example.recipecomposeapp.data.repository.getCategories
@@ -29,9 +32,15 @@ fun CategoriesScreen(
             contentDescription = "Категории",
             title = "Категории"
         )
+        Spacer(modifier = Modifier.height(Dimens.PaddingMain))
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(Dimens.PaddingMain),
+            contentPadding = PaddingValues(
+                start = Dimens.PaddingMain,
+                top = 0.dp,
+                end = Dimens.PaddingMain,
+                bottom = Dimens.PaddingMain
+            ),
             verticalArrangement = Arrangement.spacedBy(Dimens.PaddingMain),
             horizontalArrangement = Arrangement.spacedBy(Dimens.PaddingMain),
             modifier = Modifier

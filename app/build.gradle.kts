@@ -48,6 +48,7 @@ configurations.all {
 }
 
 dependencies {
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.coil.compose)
