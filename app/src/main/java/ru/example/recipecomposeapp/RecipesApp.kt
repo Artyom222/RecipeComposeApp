@@ -11,12 +11,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ru.example.recipecomposeapp.data.model.KEY_RECIPE_OBJECT
 import ru.example.recipecomposeapp.navigation.BottomNavigation
 import ru.example.recipecomposeapp.navigation.Destination
 import ru.example.recipecomposeapp.theme.RecipesAppTheme
 import ru.example.recipecomposeapp.ui.categories.CategoriesScreen
+import ru.example.recipecomposeapp.ui.details.RecipeDetailsScreen
 import ru.example.recipecomposeapp.ui.favorites.FavoritesScreen
 import ru.example.recipecomposeapp.ui.recipes.RecipesScreen
+import ru.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
 
 @Composable
 fun RecipesApp() {
@@ -64,9 +67,23 @@ fun RecipesApp() {
                         ?: error("Category ID is required")
                     val categoryTitle = backStackEntry.arguments?.getString("categoryTitle")
                         ?: error("Category title is required")
+
                     RecipesScreen(
                         categoryId = categoryId,
                         categoryTitle = categoryTitle,
+                        onRecipeClick = {recipeId, recipe ->
+                            navController.currentBackStackEntry?.savedStateHandle?.set(KEY_RECIPE_OBJECT, recipe)
+                            navController.navigate(Destination.Recipe.createRoute(recipeId))
+                        }
+                    )
+                }
+                composable(
+                    route = Destination.Recipe.route
+                ) {
+                    val recipe = navController.previousBackStackEntry
+                        ?.savedStateHandle?.get<RecipeUiModel>(KEY_RECIPE_OBJECT)
+                    RecipeDetailsScreen(
+                        recipe ?: error("RecipeUiModel is required")
                     )
                 }
             }
